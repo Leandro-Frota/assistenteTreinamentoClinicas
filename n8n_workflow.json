@@ -1,0 +1,136 @@
+{
+  "name": "GeriCare - Logs Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gericare-salvar-log",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-salvar",
+      "name": "Webhook - Salvar Log",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.item.json.body;\n\nreturn {\n  data_hora: body.data_hora || new Date().toLocaleString('pt-BR'),\n  mensagem: (body.mensagem || '').trim().substring(0, 500),\n  dispositivo: (body.dispositivo || 'desconhecido').substring(0, 200),\n  ip: body.ip || 'desconhecido'\n};"
+      },
+      "id": "code-tratar-dados",
+      "name": "Tratar Dados",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "<ID_DA_SUA_PLANILHA>",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Logs",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "data_hora":   "={{ $json.data_hora }}",
+            "mensagem":    "={{ $json.mensagem }}",
+            "dispositivo": "={{ $json.dispositivo }}",
+            "ip":          "={{ $json.ip }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "sheets-append",
+      "name": "Google Sheets - Salvar",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [720, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"status\": \"ok\" }",
+        "options": {}
+      },
+      "id": "respond-salvar",
+      "name": "Resposta - Salvar",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [960, 300]
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "gericare-buscar-logs",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-buscar",
+      "name": "Webhook - Buscar Logs",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 560]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "<ID_DA_SUA_PLANILHA>",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Logs",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "sheets-read",
+      "name": "Google Sheets - Buscar",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [480, 560]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($items().map(i => i.json)) }}",
+        "options": {}
+      },
+      "id": "respond-buscar",
+      "name": "Resposta - Buscar",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [720, 560]
+    }
+  ],
+  "connections": {
+    "Webhook - Salvar Log": {
+      "main": [[{ "node": "Tratar Dados", "type": "main", "index": 0 }]]
+    },
+    "Tratar Dados": {
+      "main": [[{ "node": "Google Sheets - Salvar", "type": "main", "index": 0 }]]
+    },
+    "Google Sheets - Salvar": {
+      "main": [[{ "node": "Resposta - Salvar", "type": "main", "index": 0 }]]
+    },
+    "Webhook - Buscar Logs": {
+      "main": [[{ "node": "Google Sheets - Buscar", "type": "main", "index": 0 }]]
+    },
+    "Google Sheets - Buscar": {
+      "main": [[{ "node": "Resposta - Buscar", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
