@@ -27,7 +27,7 @@ server_params = StdioServerParameters(
     env=os.environ
 )
 
-with open("geriCare.md", "r", encoding="utf-8") as f:
+with open("backend/prompts/system_instructions.md", "r", encoding="utf-8") as f:
     system_instructions = f.read()
 
 chat = client.chats.create(
@@ -78,7 +78,9 @@ async def consultar_servidor_mcp(pergunta: str):
     return "Desculpe, não encontrei informações relevantes para sua pergunta."
 
 
-async def gerar_resposta(user_message, chat_history, request: gr.Request):
+async def gerar_resposta(user_message, chat_history,perfil=None, request=None):
+    if request:
+        enviar_log(user_message, request)
     try:
         enviar_log(user_message, request)
         
@@ -88,6 +90,9 @@ async def gerar_resposta(user_message, chat_history, request: gr.Request):
             contexto_encontrado = "Erro ao buscar contexto."
         
         mensagem_com_contexto = f"""
+
+        Perfil do usuário: {perfil}
+        
         Mensagem do usuário:
         {user_message}
 
