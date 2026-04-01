@@ -6,7 +6,7 @@ from mcp.server.fastmcp import FastMCP
 
 load_dotenv()
 
-mcp = FastMCP("servidor de mcp para geriCare")
+mcp = FastMCP("servidor de mcp para medTrainer", port=8001)
 
 arquivos_pdf = [
                 "docs/01_Identidade_do_Atendimento_Consultorio.pdf",
