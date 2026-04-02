@@ -46,10 +46,10 @@ pypdf==6.7.0
 mcp==1.26.0
 
 # ============================================
-# Gradio Interface
+# Gradio Interface (OPCIONAL - apenas se usar medTrainer.py)
 # ============================================
-gradio==6.5.1
-gradio-client==2.0.3
+# gradio==6.5.1
+# gradio-client==2.0.3
 
 # ============================================
 # Frontend (FastHTML)

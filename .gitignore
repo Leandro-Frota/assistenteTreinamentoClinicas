@@ -51,9 +51,10 @@ embeddings/
 # PDF files (if they should not be tracked)
 # *.pdf
 
-# Gradio temporary files
+# Gradio temporary files (se usar Gradio no futuro)
 .gradio/
 *.share
+.sesskey
 
 # Logs
 *.log

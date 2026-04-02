@@ -207,7 +207,7 @@ docs/
 
 ## 🚀 Como Usar
 
-### Opção 1: Rodar Backend (API FastAPI)
+### Passo 1: Iniciar o Backend (API FastAPI)
 
 ```bash
 uvicorn backend.api:app --reload --host 0.0.0.0 --port 8000
@@ -226,23 +226,25 @@ Exemplo de requisição:
 }
 ```
 
-
-```bash
-python backend/medTrainer.py
-```
-
-Interface web com:
-- Chat interativo
-- Painel de logs
-- Histórico de conversas
-
-### Opção 3: Rodar Frontend FastHTML
+### Passo 2: Iniciar o Frontend (FastHTML)
 
 ```bash
 python frontend/app.py
 ```
 
-Interface moderna e responsiva.
+Interface moderna e responsiva em: http://localhost:5001
+
+> **⚠️ Importante**: O backend (API) precisa estar rodando para o frontend funcionar!
+
+### Opção Alternativa: Interface Gradio (Standalone)
+
+Se preferir usar a interface Gradio com logs integrados:
+
+```bash
+python backend/medTrainer.py
+```
+
+> **Nota**: Esta opção requer Gradio instalado (descomente no requirements.txt)
 
 ## 📁 Estrutura do Projeto
 

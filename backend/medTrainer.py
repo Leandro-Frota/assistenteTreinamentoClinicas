@@ -1,7 +1,6 @@
 import os
 import sys
 import requests
-import gradio as gr
 from google import genai
 from dotenv import load_dotenv
 from google.genai import types
@@ -42,7 +41,7 @@ chat = client.chats.create(
 )
 
 
-def enviar_log(mensagem: str, request: gr.Request):
+def enviar_log(mensagem: str, request: None):
     if not N8N_WEBHOOK_LOG:
         return
     try:
