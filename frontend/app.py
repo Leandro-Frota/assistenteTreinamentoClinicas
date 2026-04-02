@@ -349,7 +349,7 @@ def home():
             border: 1px solid #e5e5e5 !important;
             padding: 24px !important;
             margin-bottom: 24px;
-            max-width: 100% !important;
+            max-width: max-content;
         }
         
         .welcome-msg h3 {
@@ -501,7 +501,8 @@ def home():
         .suggestions-container {
             display: flex;
             gap: 8px;
-            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 6px;
         }
         
@@ -567,7 +568,7 @@ def home():
             background: #10a37f;
             color: white;
             border: none;
-            padding: 8px 16px;
+            # padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: 500;
@@ -624,6 +625,13 @@ def home():
             .input-container-wrapper {
                 max-width: 100%;
             }
+
+            .suggestions-container {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                margin-bottom: 6px;
+        }
         }
         """),
         
@@ -645,7 +653,6 @@ def home():
                     ),
                     
                     Div(
-                        # H3("Funcionalidades"),
                         Button(
                             Span("📊"),
                             Span("Avaliação de Desempenho"),
@@ -665,11 +672,7 @@ def home():
                         cls="features-section"
                     ),
                     
-                    # Div(
-                    #     H3("Conversas"),
-                    #     P("Nenhuma conversa salva ainda", cls="empty-state"),
-                    #     cls="conversations-section"
-                    # ),
+                
                     
                     cls="sidebar-content"
                 ),
@@ -745,25 +748,25 @@ def home():
                                     "📋 Fluxo de atendimento",
                                     cls="suggestion-chip",
                                     type="button",
-                                    onclick="document.getElementById('user-input').value='Como funciona o fluxo de atendimento?'; document.getElementById('user-input').form.requestSubmit();"
+                                    onclick="document.getElementById('user-input').value='Como funciona o fluxo de atendimento?'",
                                 ),
                                 Button(
                                     "💬 Scripts WhatsApp",
                                     cls="suggestion-chip",
                                     type="button",
-                                    onclick="document.getElementById('user-input').value='Me mostre scripts prontos para WhatsApp'; document.getElementById('user-input').form.requestSubmit();"
+                                    onclick="document.getElementById('user-input').value='Me mostre scripts prontos para WhatsApp'",
                                 ),
                                 Button(
                                     "📞 Agendamento",
                                     cls="suggestion-chip",
                                     type="button",
-                                    onclick="document.getElementById('user-input').value='Como fazer agendamento de consultas?'; document.getElementById('user-input').form.requestSubmit();"
+                                    onclick="document.getElementById('user-input').value='Como fazer agendamento de consultas?'",
                                 ),
                                 Button(
                                     "❓ Objeções comuns",
                                     cls="suggestion-chip",
                                     type="button",
-                                    onclick="document.getElementById('user-input').value='Quais são as objeções mais comuns e como responder?'; document.getElementById('user-input').form.requestSubmit();"
+                                    onclick="document.getElementById('user-input').value='Quais são as objeções mais comuns e como responder?'",
                                 ),
                                 cls="suggestions-container"
                             ),
