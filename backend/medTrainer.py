@@ -129,26 +129,7 @@ def buscar_logs():
         return [[f"Erro ao buscar logs: {str(e)}", "", "", ""]]
 
 
-with gr.Blocks(title="GeriCare — Assistente Virtual") as demo:
-    gr.Markdown("# GeriCare — Assistente Virtual de Atendimento em Geriatria")
-    gr.Markdown("Assistente virtual desenvolvido para realizar o primeiro atendimento de pacientes e familiares, oferecendo acolhimento, informações claras sobre o atendimento geriátrico e apoio no agendamento de consultas.")
 
-    with gr.Tabs():
-        with gr.Tab("💬 Chat"):
-            gr.ChatInterface(
-                fn=gerar_resposta,
-            )
-
-        with gr.Tab("📋 Logs"):
-            gr.Markdown("### Histórico de mensagens registradas na planilha")
-            tabela_logs = gr.Dataframe(
-                headers=["Data e Hora", "Mensagem", "Dispositivo", "IP"],
-                datatype=["str", "str", "str", "str"],
-                interactive=False,
-                wrap=True,
-            )
-            btn_atualizar = gr.Button("🔄 Atualizar Logs")
-            btn_atualizar.click(fn=buscar_logs, outputs=tabela_logs)
 
 
 if __name__ == "__main__":

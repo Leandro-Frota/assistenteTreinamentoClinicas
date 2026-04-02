@@ -1,7 +1,13 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import os
-from backend.medTrainer import gerar_resposta
+import sys
+from pathlib import Path
+
+# Adiciona o diretório backend ao path
+sys.path.insert(0, str(Path(__file__).parent))
+
+from medTrainer import gerar_resposta
 
 
 app = FastAPI()
@@ -26,6 +32,3 @@ async def chat(request: ChatRequest):
 
     except Exception as e:
         return {"response": f"Erro interno: {str(e)}"}
-
-    resposta = await gerar_resposta(request.message, [],request.perfil, None)
-    return {"response": resposta}
